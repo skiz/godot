@@ -59,6 +59,7 @@
 #include "editor/node_dock.h"
 #include "editor/pane_drag.h"
 #include "editor/plugin_config_dialog.h"
+#include "editor/plugin_import_dialog.h"
 #include "editor/progress_dialog.h"
 #include "editor/project_export.h"
 #include "editor/project_settings_editor.h"
@@ -286,6 +287,7 @@ private:
 	Timer *screenshot_timer;
 
 	PluginConfigDialog *plugin_config_dialog;
+	PluginImportDialog *plugin_import_dialog;
 
 	RichTextLabel *load_errors;
 	AcceptDialog *load_error_dialog;

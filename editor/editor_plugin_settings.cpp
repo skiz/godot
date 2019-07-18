@@ -173,6 +173,11 @@ void EditorPluginSettings::_create_clicked() {
 	plugin_config_dialog->popup_centered();
 }
 
+void EditorPluginSettings::_import_clicked() {
+  plugin_import_dialog->config("");
+  plugin_import_dialog->popup_centered();
+}
+
 void EditorPluginSettings::_cell_button_pressed(Object *p_item, int p_column, int p_id) {
 	TreeItem *item = Object::cast_to<TreeItem>(p_item);
 	if (!item)
@@ -190,6 +195,7 @@ void EditorPluginSettings::_bind_methods() {
 
 	ClassDB::bind_method("update_plugins", &EditorPluginSettings::update_plugins);
 	ClassDB::bind_method("_create_clicked", &EditorPluginSettings::_create_clicked);
+	ClassDB::bind_method("_import_clicked", &EditorPluginSettings::_import_clicked);
 	ClassDB::bind_method("_plugin_activity_changed", &EditorPluginSettings::_plugin_activity_changed);
 	ClassDB::bind_method("_cell_button_pressed", &EditorPluginSettings::_cell_button_pressed);
 }
@@ -200,9 +206,16 @@ EditorPluginSettings::EditorPluginSettings() {
 	plugin_config_dialog->config("");
 	add_child(plugin_config_dialog);
 
+	plugin_import_dialog = memnew(PluginImportDialog);
+	plugin_import_dialog->config("");
+	add_child(plugin_import_dialog);
+
 	HBoxContainer *title_hb = memnew(HBoxContainer);
 	title_hb->add_child(memnew(Label(TTR("Installed Plugins:"))));
 	title_hb->add_spacer();
+	import_plugin = memnew(Button(TTR("Import")));
+	import_plugin->connect("pressed", this, "_import_clicked");
+	title_hb->add_child(import_plugin);
 	create_plugin = memnew(Button(TTR("Create")));
 	create_plugin->connect("pressed", this, "_create_clicked");
 	title_hb->add_child(create_plugin);
